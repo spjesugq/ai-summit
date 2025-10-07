@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Practice - Professional Healthcare</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <!-- Logo -->
+            <div class="logo">
+                <div class="logo-icon">
+                    <div class="wave wave-1"></div>
+                    <div class="wave wave-2"></div>
+                    <div class="wave wave-3"></div>
+                </div>
+            </div>
+            
+            <!-- Practice Name -->
+            <h1 class="practice-name">Sample Practice</h1>
+            
+            <!-- Location and Contact -->
+            <div class="contact-info">
+                <span class="location">Santa Monica, Ca</span>
+                <span class="separator">•</span>
+                <span class="contact-link">Contact</span>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="navigation">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#testimonials" class="nav-link">Testimonials</a>
+                <a href="#locations" class="nav-link">Locations</a>
+                <a href="#" class="nav-link" id="customize-trigger">Customize</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">Welcome to my website</h2>
+            <p class="hero-description">Please click below to access the client portal or request a new client consult.</p>
+            
+            <!-- Call to Action Buttons -->
+            <div class="cta-buttons">
+                <button class="btn btn-secondary">Client Portal</button>
+                <button class="btn btn-primary">Request Appointment</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Customize Sidebar -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <div class="sidebar" id="customize-sidebar">
+        <div class="sidebar-header">
+            <h3>Customize</h3>
+            <button class="sidebar-close" id="sidebar-close">&times;</button>
+        </div>
+        
+        <div class="sidebar-content">
+            <div class="input-group">
+                <label for="target-audience">Target Audience</label>
+                <textarea id="target-audience" placeholder="Describe your target audience..."></textarea>
+            </div>
+            
+            <div class="input-group">
+                <label for="tone-style">Tone and Style</label>
+                <textarea id="tone-style" placeholder="Describe the tone and style you want..."></textarea>
+            </div>
+            
+            <div class="input-group">
+                <label for="core-values">Core Values</label>
+                <textarea id="core-values" placeholder="Describe your core values..."></textarea>
+            </div>
+            
+            <button class="btn btn-generate" id="generate-images">Generate Images</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Sample Practice. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

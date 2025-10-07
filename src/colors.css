@@ -1,0 +1,69 @@
+:root {
+    /* Sun Colors */
+    --sun-100: #fffaeb;
+    --sun-200: #fff4cc;
+    --sun-300: #ffe999;
+    --sun-400: #ffdd66;
+    --sun-500: #ffd233;
+    --sun-600: #ffc700; /* Primary */
+    --sun-700: #cc9f00;
+    --sun-800: #997700;
+    --sun-900: #665000;
+    --sun-1000: #332800;
+    --sun-1000--60: #33280099;
+  
+    /* Mint Colors */
+    --mint-100: #eefcef;
+    --mint-200: #e5fae7;
+    --mint-300: #d3f3d9;
+    --mint-400: #c2eec9;
+    --mint-500: #9be8a8; /* Secondary */
+    --mint-600: #77d286;
+    --mint-700: #66996f;
+    --mint-800: #416247;
+    --mint-900: #2d4130;
+    --mint-1000: #1b251d;
+  
+    /* Clay Colors */
+    --clay-100: #fef5f5;
+    --clay-200: #fdefef;
+    --clay-300: #fddddd;
+    --clay-400: #fecdcd;
+    --clay-500: #fe9a9a; /* Secondary */
+    --clay-600: #dd7878;
+    --clay-700: #8b4d4d;
+    --clay-800: #683a3a;
+    --clay-900: #472727;
+    --clay-1000: #291717;
+  
+    /* Sky Colors */
+    --sky-100: #e7f5f8;
+    --sky-200: #dbf2fa;
+    --sky-300: #cdeff9;
+    --sky-400: #bce9f8;
+    --sky-500: #9fe3f9; /* Secondary */
+    --sky-600: #6cc2dd;
+    --sky-700: #5b93a4;
+    --sky-800: #3a5d68;
+    --sky-900: #21353b;
+    --sky-1000: #172529;
+  
+    /* Forest Colors */
+    --forest-100: #eef1f1;
+    --forest-200: #dee3e3;
+    --forest-300: #bec9c9;
+    --forest-400: #9eaeae;
+    --forest-500: #7f9595;
+    --forest-600: #617c7c;
+    --forest-700: #446464;
+    --forest-800: #173e3e;
+    --forest-900: #123333; /* Primary */
+    --forest-1000: #0b1f1f;
+  
+    /* White Color */
+    --white-primary: #ffffff; /* Primary */
+    --white-primary-80: #ffffffcc;
+  
+    --smoke-700: #333;
+  }
+  

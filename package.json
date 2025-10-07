@@ -1,20 +1,28 @@
 {
   "name": "ai-summit-website",
   "version": "1.0.0",
-  "description": "A professional practice website matching the provided design",
+  "description": "A professional practice website with AI-powered image generation",
   "main": "index.html",
+  "type": "module",
   "scripts": {
     "start": "python3 -m http.server 8000",
-    "serve": "python3 -m http.server 8000"
+    "serve": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000",
+    "server": "./start-server.sh"
   },
   "keywords": [
     "website",
     "practice",
     "healthcare",
-    "professional"
+    "professional",
+    "ai",
+    "image-generation"
   ],
   "author": "AI Assistant",
   "license": "MIT",
   "devDependencies": {},
-  "dependencies": {}
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
 }

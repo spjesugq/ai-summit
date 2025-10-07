@@ -5,8 +5,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const sidebarOverlay = document.getElementById('sidebar-overlay');
     const sidebarClose = document.getElementById('sidebar-close');
     const generateImagesBtn = document.getElementById('generate-images');
-    const generatedImagesContainer = document.getElementById('generated-images');
-    const imageGrid = document.getElementById('image-grid');
+    // These elements don't exist in the HTML, so we'll handle them gracefully
+    const generatedImagesContainer = document.getElementById('generated-images') || null;
+    const imageGrid = document.getElementById('image-grid') || null;
+
+    // Check if elements exist
+    if (!customizeTrigger) {
+        console.error('Customize trigger element not found!');
+        return;
+    }
+    if (!sidebar) {
+        console.error('Sidebar element not found!');
+        return;
+    }
+    if (!sidebarOverlay) {
+        console.error('Sidebar overlay element not found!');
+        return;
+    }
 
     // Open sidebar
     customizeTrigger.addEventListener('click', function(e) {
@@ -34,61 +49,101 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Generate Images functionality
-    generateImagesBtn.addEventListener('click', function() {
+    if (generateImagesBtn) {
+        generateImagesBtn.addEventListener('click', async function() {
         // Show loading state
         generateImagesBtn.textContent = 'Generating...';
         generateImagesBtn.disabled = true;
 
-        // Mock API call with delay
-        setTimeout(() => {
-            // Mock API response with sample images
-            const mockImages = [
-                {
-                    id: 1,
-                    url: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=300&fit=crop',
-                    title: 'Therapy Session - Professional Setting'
-                },
-                {
-                    id: 2,
-                    url: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=300&fit=crop',
-                    title: 'Couple Connection - Golden Hour'
-                },
-                {
-                    id: 3,
-                    url: 'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=300&fit=crop',
-                    title: 'Hands Connection - Warm Light'
-                },
-                {
-                    id: 4,
-                    url: 'https://images.unsplash.com/photo-1576091160550-2173dba0ef28?w=400&h=300&fit=crop',
-                    title: 'Interior Design - Warm Living Space'
-                }
-            ];
-
-            // Apply first image as logo
-            const logoIcon = document.querySelector('.logo-icon');
-            if (logoIcon && mockImages[0]) {
-                logoIcon.style.backgroundImage = `url(${mockImages[0].url})`;
-                logoIcon.style.backgroundSize = 'cover';
-                logoIcon.style.backgroundPosition = 'center';
-                logoIcon.innerHTML = ''; // Remove the wave elements
+        try {
+            // Get user input from the form
+            const targetAudience = document.getElementById('target-audience').value || 'professional therapy clients';
+            const toneStyle = document.getElementById('tone-style').value || 'warm and welcoming';
+            const coreValues = document.getElementById('core-values').value || 'trust, compassion, and healing';
+            
+            // Concatenate the three inputs for the prompt
+            const combinedPrompt = `${targetAudience}, ${toneStyle}, ${coreValues}`;
+            
+            // Import and use the actual OpenAI image generation service
+            const { generateImage } = await import('./src/services/imageGeneration.js');
+            
+            // Generate image using the OpenAI API
+            let generatedImageUrl;
+            
+            try {
+                console.log('Starting image generation with prompt:', combinedPrompt);
+                
+                generateImagesBtn.textContent = 'Generating image...';
+                console.log('Generating therapy practice image...');
+                generatedImageUrl = await generateImage(`Professional therapy practice image, ${combinedPrompt}, warm and welcoming, professional photography style`, '1024x1024');
+                console.log('Image generated successfully:', generatedImageUrl);
+                
+            } catch (apiError) {
+                console.error('Error generating images with OpenAI API:', apiError);
+                console.error('API Error details:', {
+                    message: apiError.message,
+                    stack: apiError.stack,
+                    name: apiError.name
+                });
+                throw new Error(`Failed to generate images: ${apiError.message}`);
             }
+            
+            // Create image object
+            const generatedImage = {
+                id: 1,
+                url: generatedImageUrl,
+                title: 'Therapy Practice - Professional Setting'
+            };
 
-            // Apply second image as hero background
+            // Apply image as hero background
             const hero = document.querySelector('.hero');
-            if (hero && mockImages[1]) {
-                hero.style.backgroundImage = `url(${mockImages[1].url})`;
-                hero.style.backgroundSize = 'cover';
-                hero.style.backgroundPosition = 'center';
-                hero.style.backgroundRepeat = 'no-repeat';
+            if (hero && generatedImage) {
+                console.log('Applying hero image:', generatedImage.url);
+                // Preload the image to ensure it's available
+                const heroImg = new Image();
+                heroImg.onload = () => {
+                    hero.style.backgroundImage = `url(${generatedImage.url})`;
+                    hero.style.backgroundSize = 'cover';
+                    hero.style.backgroundPosition = 'center';
+                    hero.style.backgroundRepeat = 'no-repeat';
+                    console.log('Hero image applied successfully:', generatedImage.url);
+                };
+                heroImg.onerror = (error) => {
+                    console.error('Failed to load hero image:', generatedImage.url, error);
+                };
+                heroImg.src = generatedImage.url;
+            } else {
+                console.log('Hero element or generated image not found:', { hero, generatedImage });
             }
 
-            // Reset button
-            generateImagesBtn.textContent = 'Generate Images';
-            generateImagesBtn.disabled = false;
+            // Store image for potential future use
+            window.generatedImages = [generatedImage];
+            
+            // Show success message
+            generateImagesBtn.textContent = 'Image Generated Successfully!';
+            generateImagesBtn.style.backgroundColor = '#28a745';
+            setTimeout(() => {
+                generateImagesBtn.textContent = 'Generate Image';
+                generateImagesBtn.style.backgroundColor = '#d4a574';
+            }, 3000);
 
-        }, 2000); // 2 second delay to simulate API call
-    });
+        } catch (error) {
+            console.error('Error generating image:', error);
+            generateImagesBtn.textContent = 'Generation Failed';
+            generateImagesBtn.style.backgroundColor = '#dc3545';
+            alert(`Failed to generate image: ${error.message}\n\nPlease check your OpenAI API key and try again.`);
+            
+            // Reset button after error
+            setTimeout(() => {
+                generateImagesBtn.textContent = 'Generate Image';
+                generateImagesBtn.style.backgroundColor = '#d4a574';
+            }, 3000);
+        } finally {
+            // Reset button state
+            generateImagesBtn.disabled = false;
+        }
+        });
+    }
 
     // Mock API function (for future use)
     async function mockGenerateImagesAPI(targetAudience, toneStyle, coreValues) {
